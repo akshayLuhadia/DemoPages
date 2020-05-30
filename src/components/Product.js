@@ -9,7 +9,7 @@ const Product = ({ product }) => (
         <td>{product.availability}</td>
         <td>
             {product.isEditable ?
-                <Link to={`/DemoPages/edit-product/${product.id}`}>
+                <Link to={`/edit-product/${product.id}`}>
                     <button>EDIT</button>
                 </Link>
                 : ""}

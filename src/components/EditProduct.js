@@ -43,7 +43,7 @@ class EditProduct extends Component {
             isEditable: this.state.isEditable
         }
         this.props.updateProduct(product);
-        this.props.history.push("/DemoPages");
+        this.props.history.push("/");
     }
 
     render() {
@@ -112,7 +112,7 @@ class EditProduct extends Component {
                                 <tr>
                                     <td style={{ textAlign: "center" }}><button type="submit">Submit</button></td>
                                     <td style={{ textAlign: "center" }}>
-                                        <NavLink to={"/DemoPages"}>
+                                        <NavLink to={"/"}>
                                             <button>Back</button>
                                         </NavLink>
                                     </td>
