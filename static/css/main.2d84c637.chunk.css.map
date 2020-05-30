@@ -1,0 +1,1 @@
+{"version":3,"sources":["ProductList.css"],"names":[],"mappings":"AAAA,GACE,WACF,CACA,MACE,eACF,CACA,MACE,eACF,CACA,MAEE,WACF","file":"main.2d84c637.chunk.css","sourcesContent":["h1 {\r\n  padding: 5px;\r\n}\r\nthead {\r\n  font-weight: 500;\r\n}\r\ntbody {\r\n  font-weight: 400;\r\n}\r\nth,\r\ntd {\r\n  padding: 5px;\r\n}\r\n"]}
