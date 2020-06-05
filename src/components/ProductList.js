@@ -5,11 +5,6 @@ import { DetailsList } from "office-ui-fabric-react/lib/DetailsList";
 import { Link } from "react-router-dom";
 import "./ProductList.css";
 
-const style = {
-  width: "50%",
-  textAlign: "left",
-};
-
 const _columns = [
   {
     key: "column1",
