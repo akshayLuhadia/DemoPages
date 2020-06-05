@@ -1,15 +1,36 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { pricingInfo } from "../productsData";
-import Dropdown from "./Dropdown";
+import { Dropdown } from "office-ui-fabric-react/lib/Dropdown";
 import { updateProduct } from "../redux/actions/productActions";
 import { NavLink } from "react-router-dom";
+import { TextField } from "office-ui-fabric-react/lib/TextField";
+import { Label } from "office-ui-fabric-react/lib/Label";
+import { Toggle } from "office-ui-fabric-react/lib/Toggle";
+import { ChoiceGroup } from "office-ui-fabric-react/lib/ChoiceGroup";
+import { Fabric } from "office-ui-fabric-react/lib/Fabric";
+import { DefaultButton, PrimaryButton } from "office-ui-fabric-react";
+
+const options = [
+  { key: "budget", text: "Budget" },
+  { key: "premier", text: "Premier" },
+];
+
+let pricingInfoItems = {
+  budget: pricingInfo["budget"].map((item, key) => {
+    return { key: item, text: item };
+  }),
+  premier: pricingInfo["premier"].map((item, key) => {
+    return { key: item, text: item };
+  }),
+};
 
 class EditProduct extends Component {
   constructor(props) {
     super(props);
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onChoiceChange = this.onChoiceChange.bind(this);
     this.onChangeCheckbox = this.onChangeCheckbox.bind(this);
   }
   state = {
@@ -30,6 +51,10 @@ class EditProduct extends Component {
     this.setState({ [e.target.name]: e.target.checked });
   }
 
+  onChoiceChange(e, option) {
+    this.setState({ [e.target.name]: option.key });
+  }
+
   onSubmit(e) {
     e.preventDefault();
     const product = {
@@ -48,7 +73,7 @@ class EditProduct extends Component {
 
   render() {
     return (
-      <div>
+      <Fabric>
         <h3>EDIT PRODUCT</h3>
         {this.props.product != null ? (
           <form onSubmit={this.onSubmit}>
@@ -56,11 +81,10 @@ class EditProduct extends Component {
               <tbody>
                 <tr>
                   <td>
-                    <label htmlFor="productName">Name: </label>
+                    <Label htmlFor="productName">Name: </Label>
                   </td>
                   <td>
-                    <input
-                      type="text"
+                    <TextField
                       name="name"
                       id="productName"
                       defaultValue={this.state.name}
@@ -71,10 +95,10 @@ class EditProduct extends Component {
                 </tr>
                 <tr>
                   <td>
-                    <label htmlFor="productWeight">Weight: </label>
+                    <Label htmlFor="productWeight">Weight: </Label>
                   </td>
                   <td>
-                    <input
+                    <TextField
                       type="text"
                       name="weight"
                       id="productWeight"
@@ -86,10 +110,10 @@ class EditProduct extends Component {
                 </tr>
                 <tr>
                   <td>
-                    <label htmlFor="productAvailability">Availability: </label>
+                    <Label htmlFor="productAvailability">Availability: </Label>
                   </td>
                   <td>
-                    <input
+                    <TextField
                       type="number"
                       name="availability"
                       id="productAvailability"
@@ -100,10 +124,10 @@ class EditProduct extends Component {
                 </tr>
                 <tr>
                   <td>
-                    <label htmlFor="productURL">Product Url: </label>
+                    <Label htmlFor="productURL">Product Url: </Label>
                   </td>
                   <td>
-                    <input
+                    <TextField
                       type="text"
                       name="url"
                       id="productURL"
@@ -115,67 +139,55 @@ class EditProduct extends Component {
                 </tr>
                 <tr>
                   <td>
-                    <label>Price Tier </label>
+                    <Label>Price Tier </Label>
                   </td>
                   <td>
-                    <input
-                      onChange={this.onChange}
-                      type="radio"
+                    <ChoiceGroup
+                      selectedKey={this.state.pricingTier}
+                      options={options}
+                      onChange={this.onChoiceChange}
                       name="pricingTier"
-                      id="productBudget"
-                      value="budget"
-                      defaultChecked={this.state.pricingTier === "budget"}
                     />
-                    <label htmlFor="productBudget">Budget</label>
-                    <input
-                      onChange={this.onChange}
-                      type="radio"
-                      name="pricingTier"
-                      id="productPremier"
-                      value="premier"
-                      defaultChecked={this.state.pricingTier === "premier"}
-                    />
-                    <label htmlFor="productPremier">Premier</label>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <label htmlFor="productPriceRange">Price Range</label>
+                    <Label htmlFor="productPriceRange">Price Range</Label>
                   </td>
                   <td>
                     <Dropdown
-                      options={pricingInfo[this.state.pricingTier]}
-                      selectedOption={this.state.priceRange}
-                      selectedValue={(val) =>
-                        this.onChange({
-                          target: { name: "priceRange", value: val },
-                        })
+                      id="productPriceRange"
+                      options={pricingInfoItems[this.state.pricingTier]}
+                      defaultSelectedKey={this.state.priceRange}
+                      onChange={(e, option) =>
+                        this.setState({ priceRange: option.text })
                       }
                     />
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <label htmlFor="productIsEditable">Is Editable</label>
+                    <Label htmlFor="productIsEditable">Is Editable</Label>
                   </td>
                   <td>
-                    <input
+                    <Toggle
+                      defaultChecked={this.state.isEditable}
+                      onText="Editable"
+                      offText="Not Editable"
                       onChange={this.onChangeCheckbox}
-                      type="checkbox"
                       name="isEditable"
                       id="productIsEditable"
-                      defaultChecked={this.state.isEditable}
                     />
                   </td>
                 </tr>
                 <tr>
                   <td style={{ textAlign: "center" }}>
-                    <button type="submit">Submit</button>
+                    <NavLink to={"/DemoPages"}>
+                      <DefaultButton text="Back" />
+                    </NavLink>
                   </td>
                   <td style={{ textAlign: "center" }}>
-                    <NavLink to={"/DemoPages"}>
-                      <button>Back</button>
-                    </NavLink>
+                    <PrimaryButton type="submit" text="Submit" />
                   </td>
                 </tr>
               </tbody>
@@ -184,7 +196,7 @@ class EditProduct extends Component {
         ) : (
           <h3>No product found!</h3>
         )}
-      </div>
+      </Fabric>
     );
   }
 }

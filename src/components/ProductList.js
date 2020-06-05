@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import Product from "./Product";
+import { Fabric } from "office-ui-fabric-react/lib/Fabric";
+import { DetailsList } from "office-ui-fabric-react/lib/DetailsList";
+import { Link } from "react-router-dom";
 import "./ProductList.css";
 
 const style = {
@@ -8,31 +10,77 @@ const style = {
   textAlign: "left",
 };
 
+const _columns = [
+  {
+    key: "column1",
+    name: "Name",
+    fieldName: "name",
+    minWidth: 100,
+    maxWidth: 200,
+    isResizable: true,
+  },
+  {
+    key: "column2",
+    name: "Weight",
+    fieldName: "weight",
+    minWidth: 100,
+    maxWidth: 200,
+    isResizable: true,
+  },
+  {
+    key: "column3",
+    name: "Availability",
+    fieldName: "availability",
+    minWidth: 100,
+    maxWidth: 200,
+    isResizable: true,
+  },
+  {
+    key: "column3",
+    name: "",
+    fieldName: "edit",
+    minWidth: 100,
+    maxWidth: 200,
+    isResizable: true,
+  },
+];
+
 const ProductList = ({ products }) => (
-  <div>
-    <h1>Product List</h1>
-    <table style={style}>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Weight</th>
-          <th>Availability</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        {products && products.length
-          ? products.map((product, index) => {
-              return <Product key={index} product={product} />;
-            })
-          : "No products!"}
-      </tbody>
-    </table>
-  </div>
+  <Fabric>
+    <div>
+      <h1>Product List</h1>
+      {products && products.length ? (
+        <DetailsList
+          columns={_columns}
+          // selectionMode="single"
+          items={products}
+        ></DetailsList>
+      ) : (
+        "No products found"
+      )}
+    </div>
+  </Fabric>
 );
 
+const mapItem = (products) => {
+  return products.map((item) => {
+    let productItem = item;
+    if (productItem.isEditable) {
+      productItem.edit = (
+        <Link to={`/DemoPages/edit-product/${productItem.id}`}>
+          <button>EDIT</button>
+        </Link>
+      );
+    } else {
+      productItem.edit = "";
+    }
+    return productItem;
+  });
+};
+
 const mapStateToProps = (state) => {
-  const products = state.productsData.products;
+  let products = state.productsData.products;
+  products = mapItem(products);
   return { products };
 };
 
