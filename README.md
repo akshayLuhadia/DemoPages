@@ -2,7 +2,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Displays a product list using an array which is the initial state for redux store. Product can be edited and can be toggled non-editable.
 Created using React-redux.
-You can try the application on [https://akshayluhadia.github.io/Products/](Products)
+You can try the application on [Products](https://akshayluhadia.github.io/Products)
 
 ### `npm start`
 
