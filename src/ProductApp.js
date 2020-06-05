@@ -8,8 +8,8 @@ export default function ProductApp() {
     <div className="product-app">
       <Router>
         <div>
-          <Route exact path="/DemoPages" component={ProductList} />
-          <Route path="/DemoPages/edit-product/:id" component={EditProduct} />
+          <Route exact path="/Products" component={ProductList} />
+          <Route path="/Products/edit-product/:id" component={EditProduct} />
         </div>
       </Router>
     </div>

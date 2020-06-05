@@ -68,7 +68,7 @@ class EditProduct extends Component {
       isEditable: this.state.isEditable,
     };
     this.props.updateProduct(product);
-    this.props.history.push("/DemoPages");
+    this.props.history.push("/Products");
   }
 
   render() {
@@ -182,7 +182,7 @@ class EditProduct extends Component {
                 </tr>
                 <tr>
                   <td style={{ textAlign: "center" }}>
-                    <NavLink to={"/DemoPages"}>
+                    <NavLink to={"/Products"}>
                       <DefaultButton text="Back" />
                     </NavLink>
                   </td>

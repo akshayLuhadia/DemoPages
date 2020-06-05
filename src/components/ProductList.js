@@ -67,7 +67,7 @@ const mapItem = (products) => {
     let productItem = item;
     if (productItem.isEditable) {
       productItem.edit = (
-        <Link to={`/DemoPages/edit-product/${productItem.id}`}>
+        <Link to={`/Products/edit-product/${productItem.id}`}>
           <button>EDIT</button>
         </Link>
       );
