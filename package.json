@@ -1,9 +1,10 @@
 {
-  "homepage": "https://akshayLuhadia.github.io/DemoPages",
+  "homepage": "https://akshayLuhadia.github.io/Products",
   "name": "demo",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fluentui/react": "^7.117.2",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.1",
     "@testing-library/user-event": "^7.2.1",
